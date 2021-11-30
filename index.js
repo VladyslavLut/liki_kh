@@ -7,11 +7,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
 
-const search = require('./app/routes/search')
-app.use('/search', search)
-
-// const catalog = require('./app/routes/catalog')
-// app.use('/catalog', catalog)
+const catalog = require('./app/routes/catalog')
+app.use('/catalog', catalog)
 
 // const medicine = require('./app/routes/medicine')
 // app.use('/medicine', medicine)
