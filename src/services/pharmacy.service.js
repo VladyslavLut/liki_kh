@@ -1,7 +1,7 @@
 const express = require("express")
 
 module.exports = {
-    search: (request, response) => {
+    search: async (request, response) => {
         console.log(request.query)
         const query = request.query.q //TODO: or default
         const medicineId = request.params.medicineId

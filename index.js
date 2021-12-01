@@ -10,11 +10,8 @@ app.use(cors())
 const catalog = require('./app/routes/catalog')
 app.use('/catalog', catalog)
 
-// const medicine = require('./app/routes/medicine')
-// app.use('/medicine', medicine)
-
-// const pharmacy = require('./app/routes/pharmacy')
-// app.use('/pharmacy', pharmacy)
+const basket = require('./src/routes/basket')
+app.use('/basket', basket)
 
 // const basket = require('./app/routes/basket')
 // app.use('/basket', basket)

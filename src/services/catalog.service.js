@@ -1,11 +1,11 @@
 const express = require("express")
 
 module.exports = {
-    getCategories: (request, response) => {
+    getCategories: async (request, response) => {
         const categories = ['painkiller', 'temperature'] //TODO:
         return response.status(200).json({categories: categories})
     },
-    search: (request, response) => {
+    search: async (request, response) => {
         console.log(request.query)
         const query = request.query.q //TODO: or default
         const category = request.query.category //TODO: or default
@@ -22,7 +22,7 @@ module.exports = {
             catalog: catalog
         })
     },
-    getMedicine: (request, response) => {
+    getMedicine: async (request, response) => {
         const id = request.params.medicineId
         const medicine = {
             id: id,

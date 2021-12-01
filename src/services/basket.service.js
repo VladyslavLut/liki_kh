@@ -8,7 +8,7 @@ function generateId() {
 }
 
 module.exports = {
-    get: (request, response) => {
+    get: async (request, response) => {
         const body = request.body
         const id = body.id ? body.id : generateId(); //todo: move to controller
 
@@ -46,7 +46,7 @@ module.exports = {
 
         return response.status(200).json(responseBody)
     },
-    add: (request, response) => {
+    add: async (request, response) => {
         const body = request.body
         const id = body.id ? body.id : generateId(); //todo: move to controller
         const medicineId = body.medicineId
@@ -86,7 +86,7 @@ module.exports = {
 
         return response.status(200).json(responseBody)
     },
-    remove: (request, response) => {
+    remove: async (request, response) => {
         const body = request.body
         const id = body.id
         const medicineId = body.medicineId
@@ -95,7 +95,7 @@ module.exports = {
         const basket = {}
         return response.status(200).json({basket: basket})
     },
-    delete: (request, response) => {
+    delete: async (request, response) => {
         const body = request.body
         const id = body.id
         const medicineId = body.medicineId
@@ -104,7 +104,7 @@ module.exports = {
         const basket = {}
         return response.status(200).json({basket: basket})
     },
-    checkout: (request, response) => {
+    checkout: async (request, response) => {
         const body = request.body
         const basketId = body.id
         const phone = body.phone
