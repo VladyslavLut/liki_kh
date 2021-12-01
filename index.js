@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
 
-require('src/database/connection')
+require('./src/database/index')
 
 const catalog = require('./src/routes/catalog')
 app.use('/catalog', catalog)
