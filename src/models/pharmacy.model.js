@@ -16,6 +16,6 @@ const Pharmacy = sequelize.define("pharmacy", {
     address: {
         type: Sequelize.STRING(255)
     }
-});
+}, db.tableConfig);
 
 module.exports = Pharmacy

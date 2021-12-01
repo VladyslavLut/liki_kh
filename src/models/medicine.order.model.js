@@ -17,6 +17,6 @@ const MedicineOrder = sequelize.define("medicine_order", {
         type: Sequelize.INTEGER(),
         allowNull: false
     }
-});
+}, db.tableConfig);
 
 module.exports = MedicineOrder

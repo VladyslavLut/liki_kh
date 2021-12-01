@@ -14,6 +14,6 @@ const MedicineIngredient = sequelize.define("medicine_ingredient", {
         primaryKey: true
     },
     amount: Sequelize.INTEGER()
-});
+}, db.tableConfig);
 
 module.exports = MedicineIngredient

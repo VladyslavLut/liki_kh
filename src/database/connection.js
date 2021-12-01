@@ -7,10 +7,17 @@ const connection = new Sequelize("QAGAVx9yun", "QAGAVx9yun", "WMn9qj8kql", {
     dialect: "mysql",
     underscored: true,
     freezeTableName: true,
-    operatorsAliases: false
+    timestamps: false
 })
+
+const tableConfig = {
+    underscored: true,
+    freezeTableName: true,
+    timestamps: false
+}
 
 db.connection = connection
 db.Sequelize = Sequelize
+db.tableConfig = tableConfig
 
 module.exports = db

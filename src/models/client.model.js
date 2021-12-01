@@ -15,6 +15,6 @@ const Client = sequelize.define("client", {
         unique: true
     },
     email: Sequelize.STRING(255)
-});
+}, db.tableConfig);
 
 module.exports = Client

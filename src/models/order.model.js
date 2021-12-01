@@ -17,6 +17,6 @@ const Order = sequelize.define("order", {
         allowNull: false,
         defaultValue: moment.utc().format('YYYY-MM-DD HH:mm:ss')
     }
-});
+}, db.tableConfig);
 
 module.exports = Order

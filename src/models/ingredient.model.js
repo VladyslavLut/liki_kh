@@ -14,6 +14,6 @@ const Ingredient = sequelize.define("ingredient", {
         allowNull: false,
         unique: true
     }
-});
+}, db.tableConfig);
 
 module.exports = Ingredient

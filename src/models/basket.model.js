@@ -14,6 +14,6 @@ const Basket = sequelize.define("basket", {
         primaryKey: true
     },
     count: Sequelize.INTEGER()
-});
+}, db.tableConfig);
 
 module.exports = Basket

@@ -18,6 +18,6 @@ const Medicine = sequelize.define("medicine", {
     imageUrl: Sequelize.STRING(255),
     factoryName: Sequelize.STRING(255),
     instruction: Sequelize.TEXT()
-});
+}, db.tableConfig);
 
 module.exports = Medicine

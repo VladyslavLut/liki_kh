@@ -12,6 +12,6 @@ const MedicinePharmacy = sequelize.define("medicine_pharmacy", {
     pharmacyId: Sequelize.INTEGER(),
     medicineId: Sequelize.INTEGER(),
     price: Sequelize.INTEGER()
-});
+}, db.tableConfig);
 
 module.exports = MedicinePharmacy
