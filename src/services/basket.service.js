@@ -1,7 +1,5 @@
 const express = require("express")
 const hash = require('string-hash-64')
-const {checkout} = require("./basket.service");
-const {request, response} = require("express");
 
 function generateId() {
     return hash('_' + Date.now());
