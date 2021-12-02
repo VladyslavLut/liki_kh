@@ -1,5 +1,5 @@
 const db = require('../database/connection')
-const sequelize = db.connection
+const sequelize = db.sequelize
 const Sequelize = db.Sequelize
 
 const Ingredient = sequelize.define("ingredient", {

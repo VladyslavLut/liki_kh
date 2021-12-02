@@ -1,6 +1,6 @@
 const db = require('../database/connection')
 const moment = require('moment-timezone');
-const sequelize = db.connection
+const sequelize = db.sequelize
 const Sequelize = db.Sequelize
 
 const Order = sequelize.define("order", {

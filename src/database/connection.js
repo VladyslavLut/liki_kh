@@ -16,7 +16,7 @@ const tableConfig = {
     timestamps: false
 }
 
-db.connection = connection
+db.sequelize = connection
 db.Sequelize = Sequelize
 db.tableConfig = tableConfig
 
