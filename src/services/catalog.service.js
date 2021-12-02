@@ -18,21 +18,14 @@ module.exports = {
             response.status(404).json({message: 'Not found'})
         }
     },
-    search: async (request, response) => {
-        console.log(request.query)
-        const query = request.query.q //TODO: or default
-        const category = request.query.category //TODO: or default
-        const order = request.query.order //TODO: or default
+    search: async (request, response, next) => {
+        const params = request.query
+        const query = params.q ? params.q : ''
+        const category = params.category ? params.category : ''
+        const order = params.order ? params.order : ''
 
-        //todo: get all medicines for category sorted by order
-        const catalog = [
-            {name: query, category: category},
-            {name: 'medicine2', category: category}
-        ]
+        const catalog = await catalogController.search(query, category, order).catch(next)
 
-        return response.status(200).json({
-            order: order,
-            catalog: catalog
-        })
+        return response.status(200).json({catalog: catalog})
     }
 }
