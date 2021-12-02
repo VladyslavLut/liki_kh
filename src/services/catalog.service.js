@@ -1,9 +1,18 @@
-const express = require("express")
+const catalogController = require('../controllers/catalog.controller')
 
 module.exports = {
-    getCategories: async (request, response) => {
-        const categories = ['painkiller', 'temperature'] //TODO:
-        return response.status(200).json({categories: categories})
+    getCategories: async (request, response, next) => {
+        const categories = await catalogController.findAllCategories().catch(next)
+        response.status(200).json({categories: categories})
+    },
+    getMedicine: async (request, response, next) => {
+        const id = request.params.medicineId
+        const medicine = await catalogController.findMedicine(id).catch(next)
+        if (medicine) {
+            response.status(200).json(medicine);
+        } else {
+            response.status(404).json({message: 'Not found'})
+        }
     },
     search: async (request, response) => {
         console.log(request.query)
@@ -21,13 +30,5 @@ module.exports = {
             order: order,
             catalog: catalog
         })
-    },
-    getMedicine: async (request, response) => {
-        const id = request.params.medicineId
-        const medicine = {
-            id: id,
-            name: 'medicine'
-        }
-        return response.status(200).json({medicine: medicine})
     }
 }
