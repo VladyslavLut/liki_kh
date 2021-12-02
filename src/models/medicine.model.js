@@ -10,11 +10,6 @@ const Medicine = sequelize.define("medicine", {
         primaryKey: true
     },
     categoryId: Sequelize.INTEGER(),
-    phone: {
-        type: Sequelize.STRING(255),
-        allowNull: false,
-        unique: true
-    },
     imageUrl: Sequelize.STRING(255),
     factoryName: Sequelize.STRING(255),
     instruction: Sequelize.TEXT()
