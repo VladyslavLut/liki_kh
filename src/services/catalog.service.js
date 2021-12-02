@@ -1,6 +1,10 @@
 const catalogController = require('../controllers/catalog.controller')
 
 module.exports = {
+    getOrderings: async (request, response, next) => {
+        const orderings = await catalogController.findAllOrderings().catch(next)
+        response.status(200).json({orderings: orderings})
+    },
     getCategories: async (request, response, next) => {
         const categories = await catalogController.findAllCategories().catch(next)
         response.status(200).json({categories: categories})

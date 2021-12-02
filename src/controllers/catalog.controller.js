@@ -3,6 +3,9 @@ const Medicine = require('../models/medicine.model')
 const Ingredient = require('../models/ingredient.model')
 
 module.exports = {
+    findAllOrderings: async () => {
+        return [MedicineOrder.aFirst, MedicineOrder.zFirst, MedicineOrder.cheapFirst, MedicineOrder.expensiveFirst]
+    },
     findAllCategories: async () => {
         return await Category.findAll({order: ['name']})
     },
