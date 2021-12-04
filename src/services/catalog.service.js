@@ -11,6 +11,7 @@ module.exports = {
     },
     getMedicine: async (request, response, next) => {
         const id = request.params.medicineId
+        console.log(`requested -> catalog/${id}`)
         const medicine = await catalogController.findMedicine(id).catch(next)
         if (medicine) {
             response.status(200).json(medicine);
