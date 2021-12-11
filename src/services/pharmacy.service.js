@@ -1,16 +1,17 @@
-const express = require("express")
+const PharmacyController = require('../controllers/pharmacy.controller')
 
 module.exports = {
-    search: async (request, response) => {
-        console.log(request.query)
-        const query = request.query.q //TODO: or default
-        const medicineId = request.params.medicineId
-        //todo: get all pharmacies that have this medicine
-        const pharmacies = [
-            {name: query, address: 'address'},
-            {name: 'pharmacy2', address: 'address'}
-        ]
-
+    search: async (request, response, next) => {
+        const query = request.query.q ? request.query.q : ''
+        const medicineId = parseInt(request.params.medicineId)
+        if (isNaN(medicineId)) {
+            return response.status(400).json({
+                message: 'Invalid medicine id'
+            })
+        }
+        const pharmacies = await PharmacyController.findAll(
+            medicineId, query, query
+        ).catch(next);
         return response.status(200).json({
             pharmacies: pharmacies
         })
