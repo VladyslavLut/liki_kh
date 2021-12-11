@@ -19,6 +19,9 @@ Ingredient.belongsToMany(Medicine, {through: MedicineIngredient})
 Medicine.belongsToMany(Pharmacy, {through: MedicinePharmacy})
 Pharmacy.belongsToMany(Medicine, {through: MedicinePharmacy})
 
+MedicinePharmacy.belongsTo(Pharmacy)
+Pharmacy.hasMany(MedicinePharmacy)
+
 MedicinePharmacy.hasMany(Basket)
 Basket.belongsTo(MedicinePharmacy)
 
