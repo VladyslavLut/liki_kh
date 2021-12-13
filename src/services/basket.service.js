@@ -1,149 +1,82 @@
-const express = require("express")
-const hash = require('string-hash-64')
-
-function generateId() {
-    return hash('_' + Date.now());
-}
+const CheckoutController = require('../controllers/checkout.controller')
 
 module.exports = {
-    get: async (request, response) => {
+    get: async (request, response, next) => {
         const body = request.body
-        const id = body.id ? body.id : generateId(); //todo: move to controller
+        const id = body.id ? body.id : NaN
 
-        const medicines = {}
+        const basket = await CheckoutController.findBasket(id).catch(next)
 
-        medicines[{
-            id: 1,
-            name: 'Pharmacy name',
-            address: 'address',
-            price: 1000
-        }] = [
-            {
-                id: 1,
-                name: 'medicine name',
-                price: 10000,
-                count: 2
-            },
-            {
-                id: 2,
-                name: 'medicine name 2',
-                price: 5000,
-                count: 1
-            }
-        ]
-
-        const price = 10000
-
-        const responseBody = {
-            basket: {
-                id: id,
-                price: price,
-                medicines: medicines
-            }
-        }
-
-        return response.status(200).json(responseBody)
-    },
-    add: async (request, response) => {
-        const body = request.body
-        const id = body.id ? body.id : generateId(); //todo: move to controller
-        const medicineId = body.medicineId
-        const pharmacyId = body.pharmacyId
-
-        const medicines = {}
-
-        medicines[{
-            id: 1,
-            name: 'Pharmacy name',
-            address: 'address',
-            price: 1000
-        }] = [
-            {
-                id: 1,
-                name: 'medicine name',
-                price: 10000,
-                count: 2
-            },
-            {
-                id: 2,
-                name: 'medicine name 2',
-                price: 5000,
-                count: 1
-            }
-        ]
-
-        const price = 10000
-
-        const responseBody = {
-            basket: {
-                id: id,
-                price: price,
-                medicines: medicines
-            }
-        }
-
-        return response.status(200).json(responseBody)
-    },
-    remove: async (request, response) => {
-        const body = request.body
-        const id = body.id
-        const medicineId = body.medicineId
-        const pharmacyId = body.pharmacyId
-
-        const basket = {}
         return response.status(200).json({basket: basket})
     },
-    delete: async (request, response) => {
+    add: async (request, response, next) => {
         const body = request.body
-        const id = body.id
-        const medicineId = body.medicineId
-        const pharmacyId = body.pharmacyId
+        const id = body.id ? body.id : NaN
+        const medicineId = body.medicineId ? body.medicineId : NaN
+        const pharmacyId = body.pharmacyId ? body.pharmacyId : NaN
 
-        const basket = {}
+        const basket = await CheckoutController
+            .addToBasket(id, medicineId, pharmacyId)
+            .catch(error => {
+                if (error instanceof BadRequestError) {
+                    return response.status(400).json({message: error.message})
+                } else {
+                    next(error)
+                }
+            })
+
         return response.status(200).json({basket: basket})
     },
-    checkout: async (request, response) => {
+    remove: async (request, response, next) => {
         const body = request.body
-        const basketId = body.id
-        const phone = body.phone
-        const email = body.email
+        const id = body.id ? body.id : NaN
+        const medicineId = body.medicineId ? body.medicineId : NaN
+        const pharmacyId = body.pharmacyId ? body.pharmacyId : NaN
 
-        //TODO: clear basket
-        //TODO: send email
-        //TODO: send sms
+        const basket = await CheckoutController
+            .removeFromBasket(id, medicineId, pharmacyId)
+            .catch(error => {
+                if (error instanceof BadRequestError) {
+                    return response.status(400).json({message: error.message})
+                } else {
+                    next(error)
+                }
+            })
 
-        const medicines = {}
+        return response.status(200).json({basket: basket})
+    },
+    delete: async (request, response, next) => {
+        const body = request.body
+        const id = body.id ? body.id : NaN
+        const medicineId = body.medicineId ? body.medicineId : NaN
+        const pharmacyId = body.pharmacyId ? body.pharmacyId : NaN
 
-        medicines[{
-            id: 1,
-            name: 'Pharmacy name',
-            address: 'address',
-            price: 1000
-        }] = [
-            {
-                id: 1,
-                name: 'medicine name',
-                price: 10000,
-                count: 2
-            },
-            {
-                id: 2,
-                name: 'medicine name 2',
-                price: 5000,
-                count: 1
-            }
-        ]
-        const orderNumber = 1
-        const totalPrice = 1000
+        const basket = await CheckoutController
+            .deleteFromBasket(id, medicineId, pharmacyId)
+            .catch(error => {
+                if (error instanceof BadRequestError) {
+                    return response.status(400).json({message: error.message})
+                } else {
+                    next(error)
+                }
+            })
 
-        const responseBody = {
-            receipt: {
-                orderNumber: orderNumber,
-                price: totalPrice,
-                medicines: medicines
-            }
+        return response.status(200).json({basket: basket})
+    },
+    checkout: async (request, response, next) => {
+        const body = request.body
+        const id = body.id ? body.id : NaN
+        const phone = body.phone ? body.phone : ''
+        const email = body.email ? body.email : ''
+
+        if (!phone) {
+            return response.status(400).json({message: 'Phone must not be empty'})
         }
 
-        return response.status(200).json(responseBody)
+        const receipt = await CheckoutController
+            .checkout(id, phone, email)
+            .catch(next);
+
+        return response.status(200).json({basket: receipt})
     }
 }

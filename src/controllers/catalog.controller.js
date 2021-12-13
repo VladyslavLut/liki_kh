@@ -22,7 +22,7 @@ function groupIngredientsByMedicine(catalog) {
     const grouped = []
     catalog.forEach(medicine => {
         const index = grouped.length - 1
-        const previous = grouped.length > 0 ? grouped[index] : undefined
+        const previous = grouped.length ? grouped[index] : undefined
         const ingredient = {
             name: medicine.ingredientName,
             amount: medicine.ingredientAmount

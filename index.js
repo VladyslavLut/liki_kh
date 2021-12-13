@@ -13,6 +13,7 @@ app.use(express.json())
 app.use(cors())
 
 require('./src/database/index')
+require('./src/connections/vonage')
 
 const catalog = require('./src/routes/catalog')
 app.use('/catalog', catalog)
